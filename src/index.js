@@ -6,13 +6,14 @@ import Stories from "./Stories";
 import Home from "./Home";
 
 import "./styles.css";
+import Register from "./Register";
 
 function App() {
   return (
     <div className="App">
       <Route exact path="/" component={Home} />
-      <Link to="/login">Login</Link>
       <Route exact path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route exact path="/stories" component={Stories} />
     </div>
   );
