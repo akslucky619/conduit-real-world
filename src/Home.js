@@ -4,17 +4,10 @@ import Tabs from "./Tabs";
 import Tags from "./Tags";
 import Header from "./Header";
 
-function Home() {
+export function Home() {
   return (
     <>
-      <section className="hero is-small is-success is-bold">
-        <div className="hero-body">
-          <div className="container hero-container">
-            <h1 className="title is-1"> conduit </h1>
-            <h2 className="subtitle is-4"> A place to share your knowledge.</h2>
-          </div>
-        </div>
-      </section>
+      <Hero />
       <Header />
       <div className="column is-8 is-offset-3">
         <section className="main-container">
@@ -28,6 +21,19 @@ function Home() {
         </section>
       </div>
     </>
+  );
+}
+
+export function Hero() {
+  return (
+    <section className="hero is-small is-success is-bold">
+      <div className="hero-body">
+        <div className="container hero-container">
+          <h1 className="title is-1"> conduit </h1>
+          <h2 className="subtitle is-4"> A place to share your knowledge.</h2>
+        </div>
+      </div>
+    </section>
   );
 }
 
