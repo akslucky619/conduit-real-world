@@ -8,7 +8,8 @@ class Login extends React.Component {
   state = {
     email: "",
     password: "",
-    user: null
+    user: null,
+    isLoggedIn: false
   };
 
   handleChange = ({ target }) => {
@@ -41,6 +42,7 @@ class Login extends React.Component {
           this.props.history.push("/");
         }
       });
+    this.setState({ isLoggedIn: true });
   };
 
   render() {

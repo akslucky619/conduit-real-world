@@ -16,6 +16,13 @@ export default class Register extends React.Component {
     }));
   };
 
+  // handleSubmit= () =>{
+  //   const url = 'https://conduit.productionready.io/api/users'
+  //   const { email, password, password } = this.state;
+  //   const data =
+  //   fetch(url)
+  // }
+
   render() {
     return (
       <div class="columns is-mobile">
