@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="column is-8 is-offset-2">
+    <header className="base column is-8 is-offset-2">
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <h1 className="title is-3 isPrimary">
@@ -14,32 +14,31 @@ function Header() {
         </div>
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-end">
-            <NavLink
-              exact
-              className="navbar-item"
-              to="/"
-              activeClassName="active__nav"
-            >
+            <NavLink exact className="navbar-item" to="/">
               Home
             </NavLink>
-            <>
-              <NavLink
-                exact
-                className="navbar-item"
-                to="/login"
-                activeClassName="active__nav"
-              >
-                Sign In
-              </NavLink>
-              <NavLink
-                exact
-                className="navbar-item"
-                to="/register"
-                activeClassName="active__nav"
-              >
-                Sign Up
-              </NavLink>
-            </>
+            {localStorage ? (
+              <>
+                <NavLink exact className="navbar-item" to="/create">
+                  New Post
+                </NavLink>
+                <NavLink exact className="navbar-item" to="/edit">
+                  Settings
+                </NavLink>
+                <NavLink exact className="navbar-item" to="/profile">
+                  Account
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink exact className="navbar-item" to="/login">
+                  Sign In
+                </NavLink>
+                <NavLink exact className="navbar-item" to="/register">
+                  Sign Up
+                </NavLink>
+              </>
+            )}
           </div>
         </div>
       </nav>
