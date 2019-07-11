@@ -6,6 +6,7 @@ import Stories from "./Stories";
 import Home from "./Home";
 
 import "./styles.css";
+import "bulma/css/bulma.css";
 import Register from "./Register";
 
 function App() {

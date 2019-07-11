@@ -1,9 +1,29 @@
 import React from "react";
+import Stories from "./Stories";
+import Tabs from "./Tabs";
 
-class Home extends React.Component {
-  render() {
-    return <h1>Home</h1>;
-  }
+function Home() {
+  return (
+    <>
+      <section className="hero is-small is-success is-bold">
+        <div className="hero-body">
+          <div className="container hero-container">
+            <h1 className="title is-1"> conduit </h1>
+            <h2 className="subtitle is-4"> A place to share your knowledge.</h2>
+          </div>
+        </div>
+      </section>
+      <div className="base column is-8 is-offset-2">
+        <section className="main-container">
+          <div className="column is-three-quarters">
+            <Tabs />
+            <Stories />
+          </div>
+          <div>{/* <ShowTags /> */}</div>
+        </section>
+      </div>
+    </>
+  );
 }
 
 export default Home;
