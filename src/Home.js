@@ -7,8 +7,8 @@ import Header from "./Header";
 export function Home() {
   return (
     <>
-      <Hero />
       <Header />
+      <Hero />
       <div className="column is-8 is-offset-3">
         <section className="main-container">
           <div className="column is-three-quarters">
