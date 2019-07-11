@@ -1,6 +1,8 @@
 import React from "react";
 import Stories from "./Stories";
 import Tabs from "./Tabs";
+import Tags from "./Tags";
+import Header from "./Header";
 
 function Home() {
   return (
@@ -13,13 +15,16 @@ function Home() {
           </div>
         </div>
       </section>
-      <div className="base column is-8 is-offset-2">
+      <Header />
+      <div className="column is-8 is-offset-3">
         <section className="main-container">
           <div className="column is-three-quarters">
             <Tabs />
             <Stories />
           </div>
-          <div>{/* <ShowTags /> */}</div>
+          <div>
+            <Tags />
+          </div>
         </section>
       </div>
     </>

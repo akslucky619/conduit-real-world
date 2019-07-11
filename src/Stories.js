@@ -34,7 +34,7 @@ export default class PersonList extends React.Component {
               <div class="content">
                 {article.description}
                 <br />
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
               </div>
             </div>
           </div>
