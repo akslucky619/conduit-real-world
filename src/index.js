@@ -22,16 +22,6 @@ function App() {
   );
 }
 
-// class Home extends React.Component{
-//   render(){
-//     return(
-//       <Router>
-//         <Link to='/login'>Login</Link>
-//       </Router>
-//     )
-//   }
-// }
-
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <BrowserRouter>

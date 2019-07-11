@@ -20,12 +20,15 @@ class Login extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { email, password } = this.state;
+    const data = { email, password };
+    console.log(data);
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ user: this.state })
+      body: JSON.stringify({ user: data })
     })
       .then(res => res.json())
       .then(data => {
@@ -82,7 +85,12 @@ class Login extends React.Component {
           </div>
           <div className="field">
             <p className="control">
-              <button className="button is-success is-large">Sign In</button>
+              <button
+                onClick={this.handleSubmit}
+                className="button is-success is-large"
+              >
+                Sign In
+              </button>
             </p>
           </div>
         </div>
