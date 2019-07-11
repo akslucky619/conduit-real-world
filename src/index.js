@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Stories from "./Stories";
 import Home from "./Home";
+import CreateBlog from "./CreateBlog";
 
 import "./styles.css";
 import "bulma/css/bulma.css";
@@ -16,19 +17,10 @@ function App() {
       <Route exact path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route exact path="/stories" component={Stories} />
+      <Route path="/create" component={CreateBlog} />
     </div>
   );
 }
-
-// class Home extends React.Component{
-//   render(){
-//     return(
-//       <Router>
-//         <Link to='/login'>Login</Link>
-//       </Router>
-//     )
-//   }
-// }
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
