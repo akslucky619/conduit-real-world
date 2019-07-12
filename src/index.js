@@ -10,6 +10,7 @@ import Edit from "./Edit";
 import "./styles.css";
 import "bulma/css/bulma.css";
 import Register from "./Register";
+import Profile from "./Profile";
 
 class App extends React.Component {
   state = {
@@ -22,12 +23,14 @@ class App extends React.Component {
   //     fetch("https://conduit.productionready.io/api/user", {
   //       method: "GET",
   //       headers: {
-  //         Authorization: "Bearer" + localStorage.getItem("token")
+  //         "Content-Type": "application/json",
+  //         Authorization: `Token ${localStorage.token}`
   //       }
   //     })
   //       .then(res => res.json())
   //       .then(data => {
   //         console.log(data);
+  //         this.setState({})
   //       })
   //       .catch(err => {
   //         console.log(err);
@@ -44,6 +47,7 @@ class App extends React.Component {
         <Route exact path="/stories" component={Stories} />
         <Route path="/create" component={CreateBlog} />
         <Route path="/edit" component={Edit} />
+        <Route path="/profile" component={Profile} />
       </div>
     );
   }
