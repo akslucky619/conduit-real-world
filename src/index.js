@@ -16,24 +16,24 @@ class App extends React.Component {
     user: null
   };
 
-  componentDidMount = () => {
-    console.log(localStorage.getItem("token"));
-    if (localStorage.getItem("token")) {
-      fetch("https://conduit.productionready.io/api/user", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer" + localStorage.getItem("token")
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
+  // componentDidMount = () => {
+  //   console.log(localStorage.getItem("token"));
+  //   if (localStorage.getItem("token")) {
+  //     fetch("https://conduit.productionready.io/api/user", {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: "Bearer" + localStorage.getItem("token")
+  //       }
+  //     })
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         console.log(data);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
   render() {
     return (

@@ -16,12 +16,22 @@ export default class Register extends React.Component {
     }));
   };
 
-  // handleSubmit= () =>{
-  //   const url = 'https://conduit.productionready.io/api/users'
-  //   const { email, password, password } = this.state;
-  //   const data =
-  //   fetch(url)
-  // }
+  handleClick = () => {
+    const data = {
+      user: this.state
+    };
+    fetch("https://conduit.productionready.io/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(user => {
+        console.log(user, "check user");
+      });
+  };
 
   render() {
     return (
@@ -75,7 +85,12 @@ export default class Register extends React.Component {
           </div>
           <div className="field">
             <p className="control">
-              <button className="button is-success is-large ">Sign Up</button>
+              <button
+                onClick={this.handleClick}
+                className="button is-success is-large "
+              >
+                Sign Up
+              </button>
             </p>
           </div>
         </div>

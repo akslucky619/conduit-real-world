@@ -31,7 +31,7 @@ class Create extends React.Component {
       .then(res => res.json())
       .then(article => {
         console.log(article);
-      });
+      }, this.props.history.push("/"));
   };
 
   render() {
