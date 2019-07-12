@@ -1,8 +1,9 @@
 import React from "react";
 import "bulma";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default class PersonList extends React.Component {
+export default class Stories extends React.Component {
   state = {
     articles: []
   };
@@ -10,7 +11,7 @@ export default class PersonList extends React.Component {
   componentDidMount() {
     axios.get(`https://conduit.productionready.io/api/articles`).then(res => {
       const stories = res.data;
-      console.log(stories);
+      console.log(stories, "in home");
       this.setState({ articles: stories.articles });
     });
   }
@@ -28,7 +29,9 @@ export default class PersonList extends React.Component {
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{article.author.username}</p>
-                  <p class="subtitle is-6">{article.title}</p>
+                  <Link to="/article" class="subtitle is-6">
+                    {article.title}
+                  </Link>
                 </div>
               </div>
               <div class="content">

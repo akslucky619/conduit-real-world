@@ -2,6 +2,39 @@ import React from "react";
 import Header from "./Header";
 
 export default class EditUser extends React.Component {
+  state = {
+    bio: "",
+    email: "",
+    image: "",
+    username: "",
+    password: ""
+  };
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleClick = () => {
+    const data = {
+      user: this.state
+    };
+
+    fetch("https://conduit.productionready.io/api/user", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.token}`
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(user => {
+        console.log(user, "put req");
+      });
+  };
+
   handleLogout = () => {
     localStorage.removeItem("token");
     this.props.history.push("/");
@@ -14,7 +47,9 @@ export default class EditUser extends React.Component {
           <div class="field">
             <div class="control">
               <input
+                onChange={this.handleChange}
                 class="input"
+                name="image"
                 type="text"
                 placeholder="URL of profile picture"
               />
@@ -24,9 +59,12 @@ export default class EditUser extends React.Component {
           <div class="field">
             <div class="control">
               <input
+                onChange={this.handleChange}
                 class="input"
                 type="text"
-                placeholder="What is this article about?"
+                name="username"
+                // value={this.state.username}
+                placeholder="New username"
               />
             </div>
           </div>
@@ -35,26 +73,45 @@ export default class EditUser extends React.Component {
             <div class="control">
               <textarea
                 class="textarea"
-                placeholder="Write your article (in markdown)"
+                name="bio"
+                onChange={this.handleChange}
+                placeholder="Bio"
               />
             </div>
           </div>
 
           <div class="field">
             <div class="control">
-              <input class="input" type="text" placeholder="Input Tags" />
+              <input
+                onChange={this.handleChange}
+                class="input"
+                type="text"
+                name="email"
+                placeholder="new email"
+              />
             </div>
           </div>
 
           <div class="field">
             <div class="control">
-              <input class="input" type="text" placeholder="Article Title" />
+              <input
+                onChange={this.handleChange}
+                class="input"
+                type="text"
+                name="password"
+                placeholder="New Password"
+              />
             </div>
           </div>
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link is-right">Submit</button>
+              <button
+                onClick={this.handleClick}
+                class="button is-link is-right"
+              >
+                Submit
+              </button>
               <button
                 onClick={this.handleLogout}
                 class="button is-link is-right"
