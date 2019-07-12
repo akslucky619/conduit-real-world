@@ -3,11 +3,13 @@ import Header from "./Header";
 
 export default class EditUser extends React.Component {
   state = {
-    bio: "",
-    email: "",
-    image: "",
-    username: "",
-    password: ""
+    user: {
+      bio: "",
+      email: "",
+      image: "",
+      username: "",
+      password: ""
+    }
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -16,22 +18,35 @@ export default class EditUser extends React.Component {
     });
   };
 
-  handleClick = () => {
-    const data = {
-      user: this.state
-    };
+  // componentDidMount = () => {
+  //   fetch("https://conduit.productionready.io/api/user", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Token ${localStorage.token}`
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then(({ user }) => {
+  //       console.log(user, "abe user");
+  //       this.setState({ user: user });
+  //     });
+  // };
 
+  handleClick = () => {
     fetch("https://conduit.productionready.io/api/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.token}`
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(this.state)
     })
       .then(res => res.json())
       .then(user => {
         console.log(user, "put req");
+        // this.setState({ user: user });
+        // this.props.history.push("/");
       });
   };
 
@@ -40,6 +55,8 @@ export default class EditUser extends React.Component {
     this.props.history.push("/");
   };
   render() {
+    // const { user } = this.state;
+    // console.log(user, "doosri baar waala");
     return (
       <>
         <Header />
@@ -63,7 +80,6 @@ export default class EditUser extends React.Component {
                 class="input"
                 type="text"
                 name="username"
-                // value={this.state.username}
                 placeholder="New username"
               />
             </div>
@@ -97,7 +113,7 @@ export default class EditUser extends React.Component {
               <input
                 onChange={this.handleChange}
                 class="input"
-                type="text"
+                type="password"
                 name="password"
                 placeholder="New Password"
               />

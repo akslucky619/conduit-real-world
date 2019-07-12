@@ -8,9 +8,6 @@ class Profile extends React.Component {
   };
 
   componentDidMount = () => {
-    const data = {
-      user: this.state
-    };
     fetch("https://conduit.productionready.io/api/user", {
       method: "GET",
       headers: {
@@ -47,16 +44,22 @@ class Profile extends React.Component {
   };
 
   render() {
-    console.log(this.state, "chechp");
+    // console.log(this.state, "chechp");
+    const { user } = this.state;
     return (
       <>
         <Header />
         <section className="hero is-small is-success is-bold">
           <div className="hero-body">
             <div className="container hero-container">
-              {/* {this.state}?(
-              <h1 className="title is-1">{this.state.user.username}</h1>): */}
-              <h2 className="subtitle is-4">Edit</h2>
+              {user !== null ? (
+                <>
+                  <h1 className="title is-1">{this.state.user.username}</h1>
+                  <h2 className="subtitle is-4">Edit</h2>
+                </>
+              ) : (
+                <h1>Load ho raha hai...</h1>
+              )}
             </div>
           </div>
         </section>
