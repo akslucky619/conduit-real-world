@@ -29,7 +29,7 @@ export default class Stories extends React.Component {
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{article.author.username}</p>
-                  <Link to="/article" class="subtitle is-6">
+                  <Link to={`/article/${article.slug}`} class="subtitle is-6">
                     {article.title}
                   </Link>
                 </div>
