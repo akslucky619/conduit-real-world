@@ -11,12 +11,14 @@ export function Home() {
       <Hero />
       <div className="column is-8 is-offset-3">
         <section className="main-container">
-          <div className="column is-three-quarters">
-            <Tabs />
-            <Stories />
-          </div>
-          <div>
-            <Tags />
+          <div className="columns">
+            <div className="column is-three-quarters">
+              <Tabs />
+              <Stories />
+            </div>
+            <div className="column">
+              <Tags />
+            </div>
           </div>
         </section>
       </div>
