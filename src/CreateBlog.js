@@ -7,7 +7,7 @@ class Create extends React.Component {
     title: "",
     description: "",
     body: "",
-    tags: []
+    tagList: ""
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -17,8 +17,15 @@ class Create extends React.Component {
   };
 
   handleClick = () => {
+    const tagList = this.state.tagList.split(",").map(tag => tag.trim());
+    const { title, description, body } = this.state;
     const data = {
-      article: this.state
+      article: {
+        title,
+        description,
+        body,
+        tagList
+      }
     };
     fetch("https://conduit.productionready.io/api/articles", {
       method: "POST",
@@ -80,7 +87,7 @@ class Create extends React.Component {
                 onChange={this.handleChange}
                 class="input"
                 type="text"
-                name="tags"
+                name="tagList"
                 placeholder="Input Tags"
               />
             </div>
