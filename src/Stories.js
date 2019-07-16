@@ -25,7 +25,7 @@ export default class Stories extends React.Component {
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48" />
-                  <img src={article.author.image} />
+                  <img src={article.author.image} alt="" />
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{article.author.username}</p>

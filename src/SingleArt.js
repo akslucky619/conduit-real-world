@@ -71,6 +71,7 @@ class SingleArt extends React.Component {
 
   render() {
     const { article, comments } = this.state;
+    console.log(comments, "just checking");
     console.log(article, "check rt");
     return (
       <>
@@ -85,6 +86,7 @@ class SingleArt extends React.Component {
                   <Link to="/profile" className="subtitle is-6">
                     {article.author.username}
                   </Link>
+                  <Link to={`/editArticle/${article.slug}`}>Edit</Link>
                 </div>
               </div>
             </section>
@@ -109,35 +111,11 @@ class SingleArt extends React.Component {
         ) : (
           ""
         )}
-        {/* {Object.keys(comments).map((comment, i) => {
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">Component</p>
-              <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true" />
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a href="#" class="card-footer-item">
-                Save
-              </a>
-              <a href="#" class="card-footer-item">
-                Edit
-              </a>
-              <a href="#" class="card-footer-item">
-                Delete
-              </a>
-            </footer>
-          </div>;
+        {/* {comments!== null?(
+          <>
+        )} */}
+        {/* {comments.map((comment, i) => {
+          <p>{comment.body}</p>;
         })} */}
         <article class="media">
           <div class="media-content">
