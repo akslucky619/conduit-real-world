@@ -6,7 +6,6 @@ import Stories from "./Stories";
 import Home from "./Home";
 import CreateBlog from "./CreateBlog";
 import Edit from "./Edit";
-import EditBlog from "./EditBlog";
 
 import "./styles.css";
 import "bulma/css/bulma.css";
@@ -51,7 +50,6 @@ class App extends React.Component {
         <Route path="/edit" component={Edit} />
         <Route path="/profile" component={Profile} />
         <Route path="/article/:slug" component={SingleArt} />
-        <Route path="/editArticle/:slug" component={EditBlog} />
       </div>
     );
   }
