@@ -64,11 +64,11 @@ export default class EditUser extends React.Component {
         {localStorage.token ? (
           <>
             <div className="column is-two-fifths is-offset-one-quarter">
-              <div class="field">
-                <div class="control">
+              <div className="field">
+                <div className="control">
                   <input
                     onChange={this.handleChange}
-                    class="input"
+                    className="input"
                     name="image"
                     type="text"
                     placeholder="URL of profile picture"
@@ -76,11 +76,11 @@ export default class EditUser extends React.Component {
                 </div>
               </div>
 
-              <div class="field">
-                <div class="control">
+              <div className="field">
+                <div className="control">
                   <input
                     onChange={this.handleChange}
-                    class="input"
+                    className="input"
                     type="text"
                     name="username"
                     placeholder="New username"
@@ -88,10 +88,10 @@ export default class EditUser extends React.Component {
                 </div>
               </div>
 
-              <div class="field">
-                <div class="control">
+              <div className="field">
+                <div className="control">
                   <textarea
-                    class="textarea"
+                    className="textarea"
                     name="bio"
                     onChange={this.handleChange}
                     placeholder="Bio"
@@ -99,11 +99,11 @@ export default class EditUser extends React.Component {
                 </div>
               </div>
 
-              <div class="field">
-                <div class="control">
+              <div className="field">
+                <div className="control">
                   <input
                     onChange={this.handleChange}
-                    class="input"
+                    className="input"
                     type="text"
                     name="email"
                     placeholder="new email"
@@ -111,11 +111,11 @@ export default class EditUser extends React.Component {
                 </div>
               </div>
 
-              <div class="field">
-                <div class="control">
+              <div className="field">
+                <div className="control">
                   <input
                     onChange={this.handleChange}
-                    class="input"
+                    className="input"
                     type="password"
                     name="password"
                     placeholder="New Password"
@@ -123,17 +123,17 @@ export default class EditUser extends React.Component {
                 </div>
               </div>
 
-              <div class="field is-grouped">
-                <div class="control">
+              <div className="field is-grouped">
+                <div className="control">
                   <button
                     onClick={this.handleClick}
-                    class="button is-link is-right"
+                    className="button is-link is-right"
                   >
                     Submit
                   </button>
                   <button
                     onClick={this.handleLogout}
-                    class="button is-link is-right"
+                    className="button is-link is-right"
                   >
                     Logout
                   </button>

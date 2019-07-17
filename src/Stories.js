@@ -19,30 +19,33 @@ export default class Stories extends React.Component {
   render() {
     return (
       <ul>
-        {this.state.articles.map(article => (
-          <div class="card">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-48x48">
+        {this.state.articles.map((article, i) => (
+          <div className="card">
+            <div className="card-content">
+              <div className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64">
                     <img
-                      className="is-rounded"
+                      classNameName="is-rounded"
                       src={article.author.image}
                       alt=""
                     />
                   </figure>
                 </div>
-                <div class="media-content">
-                  <p class="title is-4">{article.author.username}</p>
-                  <Link to={`/article/${article.slug}`} class="subtitle is-6">
+                <div className="media-content">
+                  <p className="title is-4">{article.author.username}</p>
+                  <Link
+                    to={`/article/${article.slug}`}
+                    className="subtitle is-6"
+                  >
                     {article.title}
                   </Link>
                 </div>
               </div>
-              <div class="content">
+              <div className="content">
                 {article.description}
                 <br />
-                <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <time dateTime="2016-1-1">{article.createdAt}</time>
               </div>
             </div>
           </div>
