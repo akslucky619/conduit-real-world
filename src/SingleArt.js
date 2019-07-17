@@ -145,7 +145,7 @@ class SingleArt extends React.Component {
         </section>
         <section className="column is-6 is-offset-3">
           {comments
-            ? comments.map((comment, i) => (
+            ? comments.reverse().map((comment, i) => (
                 <article key={i} className="media comment-box">
                   <div className="media-content">
                     <div className="field">

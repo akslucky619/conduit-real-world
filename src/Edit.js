@@ -19,20 +19,20 @@ export default class EditUser extends React.Component {
     });
   };
 
-  // componentDidMount = () => {
-  //   fetch("https://conduit.productionready.io/api/user", {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Token ${localStorage.token}`
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(({ user }) => {
-  //       console.log(user, "abe user");
-  //       this.setState({ user: user });
-  //     });
-  // };
+  componentDidMount = () => {
+    fetch("https://conduit.productionready.io/api/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.token}`
+      }
+    })
+      .then(res => res.json())
+      .then(({ user }) => {
+        console.log(user, "user in edit");
+        this.setState({ user: user });
+      });
+  };
 
   handleClick = () => {
     fetch("https://conduit.productionready.io/api/user", {
