@@ -48,7 +48,7 @@ class SingleArt extends React.Component {
     });
   };
 
-  handleClick = () => {
+  postComent = () => {
     const data = {
       comment: {
         body: this.state.body
@@ -74,6 +74,7 @@ class SingleArt extends React.Component {
     });
   };
 
+  handleDelete = () => {};
   render() {
     const { article, comments, body } = this.state;
     console.log(body, "check body");
@@ -115,32 +116,108 @@ class SingleArt extends React.Component {
         ) : (
           ""
         )}
-        {comments ? comments.map(comment => <p>{comment.body}</p>) : ""}
-        <article class="media">
-          <div class="media-content">
-            <div class="field">
-              <p class="control">
-                <textarea
-                  class="textarea"
-                  onChange={this.handleChange}
-                  name="body"
-                  placeholder="Add a comment..."
-                >
-                  {body}
-                </textarea>
-              </p>
-            </div>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <button class="button is-info" onClick={this.handleClick}>
-                    Submit
-                  </button>
-                </div>
+        <section className="column is-6 is-offset-3">
+          <article class="media">
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                  <textarea
+                    class="textarea"
+                    onChange={this.handleChange}
+                    name="body"
+                    placeholder="Add a comment..."
+                  >
+                    {body}
+                  </textarea>
+                </p>
               </div>
-            </nav>
-          </div>
-        </article>
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button class="button is-info" onClick={this.postComent}>
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </article>
+        </section>
+        <section className="column is-6 is-offset-3">
+          {comments
+            ? comments.map((comment, i) => (
+                <article key={i} className="media comment-box">
+                  <div className="media-content">
+                    <div className="field">
+                      <p className="control">
+                        <textarea
+                          className="textarea old-comment"
+                          value={comment.body}
+                          placeholder="Add a comment..."
+                          rows="3"
+                          readOnly
+                        />
+                      </p>
+                    </div>
+                    <nav className="level comment-footer">
+                      <div className="level-left">
+                        <div className="media commnet-media">
+                          <div className="media-left">
+                            <figure className="image is-32x32">
+                              <img
+                                className=" is-responsive is-rounded"
+                                src={
+                                  comment.author.image ||
+                                  "https://bulma.io/images/placeholders/96x96.png"
+                                }
+                                alt="author avatar"
+                              />
+                            </figure>
+                          </div>
+                          <div className="v-center media-content is-small">
+                            <Link
+                              to={{
+                                pathname: "/profile",
+                                state: {
+                                  username: comment.author.username
+                                }
+                              }}
+                              className="green-text"
+                            >
+                              <span className="green-text">
+                                {comment.author.username}
+                              </span>
+                            </Link>
+                            <span className="thin-text">
+                              <em>{Date(comment.createdAt).slice(0, 15)}</em>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* {comment.author.username === currentUser ? (
+                      <div className="level-right">
+                        <div className="level-item">
+                          <div className="level-item">
+                            <button
+                              className="button is-text"
+                              onClick={() => this.deleteCommnt(id)}
+                            >
+                              <span className="icon is-small">
+                                <i className="fas fa-trash-alt" />
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )} */}
+                    </nav>
+                  </div>
+                </article>
+              ))
+            : ""}
+        </section>
       </>
     );
   }
