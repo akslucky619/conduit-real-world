@@ -6,10 +6,8 @@ import Header from "./Header";
 class SingleArt extends React.Component {
   state = {
     article: {},
-    comments: {},
-    comment: {
-      body: []
-    }
+    comments: [],
+    body: ""
   };
 
   componentDidMount = () => {
@@ -23,7 +21,7 @@ class SingleArt extends React.Component {
     })
       .then(res => res.json())
       .then(({ article }) => {
-        console.log(article, "lodu");
+        console.log(article, "in single art");
         this.setState({ article: article });
       });
     fetch(
@@ -39,7 +37,7 @@ class SingleArt extends React.Component {
     )
       .then(res => res.json())
       .then(comments => {
-        console.log(comments, "inside comments");
+        console.log(comments.comments, "inside comments");
         this.setState({ comments: comments.comments });
       });
   };
@@ -52,7 +50,9 @@ class SingleArt extends React.Component {
 
   handleClick = () => {
     const data = {
-      comment: this.state
+      comment: {
+        body: this.state.body
+      }
     };
     const { slug } = this.props.match.params;
     fetch(`https://conduit.productionready.io/api/articles/${slug}/comments`, {
@@ -64,15 +64,19 @@ class SingleArt extends React.Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(comment => {
-        console.log(comment);
+      .then(({ comment }) => {
+        this.setState({
+          comments: [...this.state.comments, comment]
+        });
       });
+    this.setState({
+      body: ""
+    });
   };
 
   render() {
-    const { article, comments } = this.state;
-    console.log(comments, "just checking");
-    console.log(article, "check rt");
+    const { article, comments, body } = this.state;
+    console.log(body, "check body");
     return (
       <>
         <Header />
@@ -111,12 +115,7 @@ class SingleArt extends React.Component {
         ) : (
           ""
         )}
-        {/* {comments!== null?(
-          <>
-        )} */}
-        {/* {comments.map((comment, i) => {
-          <p>{comment.body}</p>;
-        })} */}
+        {comments ? comments.map(comment => <p>{comment.body}</p>) : ""}
         <article class="media">
           <div class="media-content">
             <div class="field">
@@ -126,7 +125,9 @@ class SingleArt extends React.Component {
                   onChange={this.handleChange}
                   name="body"
                   placeholder="Add a comment..."
-                />
+                >
+                  {body}
+                </textarea>
               </p>
             </div>
             <nav class="level">

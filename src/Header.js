@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 function Header() {
-  console.log(localStorage.token, "chckh");
+  console.log(localStorage.token, "check token");
   return (
     <header className="base column is-8 is-offset-2">
       <nav className="navbar" role="navigation" aria-label="main navigation">

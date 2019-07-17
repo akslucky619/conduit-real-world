@@ -4,15 +4,43 @@ import Header from "./Header";
 
 class EditBlog extends React.Component {
   state = {
-    title: "",
-    description: "",
-    body: "",
-    tagList: ""
+    article: {
+      title: "",
+      description: "",
+      body: "",
+      tagList: ""
+    }
   };
 
   componentDidMount = () => {
-    const tagList = this.state.tagList.split(",").map(tag => tag.trim());
-    const { title, description, body } = this.state;
+    const { slug } = this.props.match.params;
+    fetch(`https://conduit.productionready.io/api/articles/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.token}`
+      }
+    })
+      .then(res => res.json())
+      .then(article => {
+        console.log(article, "in edit");
+        this.setState({ article: article.article });
+        console.log(article, "part 2");
+      });
+  };
+
+  inputChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleClick = () => {
+    const { slug } = this.props.match.params;
+    const tagList = this.state.article.tagList
+      .split(",")
+      .map(tag => tag.trim());
+    const { title, description, body } = this.state.article;
     const data = {
       article: {
         title,
@@ -21,9 +49,8 @@ class EditBlog extends React.Component {
         tagList
       }
     };
-    const { slug } = this.props.match.params;
     fetch(`https://conduit.productionready.io/api/articles/${slug}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.token}`
@@ -32,70 +59,79 @@ class EditBlog extends React.Component {
     })
       .then(res => res.json())
       .then(article => {
-        console.log(article, "in edit");
-      });
+        console.log(article, "posting article");
+      }, this.props.history.push("/"));
   };
 
   render() {
+    const article = this.state.article;
     return (
       <>
         <Header />
-        <div className="column is-three-fifths is-offset-one-fifth">
-          <div class="field">
-            <div class="control">
-              <input
-                onChange={this.handleChange}
-                class="input"
-                type="text"
-                name="title"
-                placeholder="Article Title"
-              />
-            </div>
-          </div>
+        {localStorage.token ? (
+          <>
+            <div className="column is-three-fifths is-offset-one-fifth">
+              <div class="field">
+                <div class="control">
+                  <input
+                    onChange={this.inputChange}
+                    class="input"
+                    type="text"
+                    name="title"
+                    value={article.title}
+                    placeholder="Article Title"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input
+                    onChange={this.inputChange}
+                    class="input"
+                    type="text"
+                    name="description"
+                    value={article.description}
+                    placeholder="What is this article about?"
+                  />
+                </div>
+              </div>
 
-          <div class="field">
-            <div class="control">
-              <input
-                onChange={this.handleChange}
-                class="input"
-                type="text"
-                name="description"
-                placeholder="What is this article about?"
-              />
-            </div>
-          </div>
+              <div class="field">
+                <div class="control">
+                  <textarea
+                    onChange={this.inputChange}
+                    class="textarea"
+                    name="body"
+                    value={article.body}
+                    placeholder="Write your article (in markdown)"
+                  />
+                </div>
+              </div>
 
-          <div class="field">
-            <div class="control">
-              <textarea
-                onChange={this.handleChange}
-                class="textarea"
-                name="body"
-                placeholder="Write your article (in markdown)"
-              />
+              <div class="field">
+                <div class="control">
+                  <input
+                    onChange={this.inputChange}
+                    class="input"
+                    type="text"
+                    name="tagList"
+                    value={article.tagList}
+                    placeholder="Input Tags"
+                  />
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button onClick={this.handleClick} class="button is-link">
+                    Submit
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <input
-                onChange={this.handleChange}
-                class="input"
-                type="text"
-                name="tagList"
-                placeholder="Input Tags"
-              />
-            </div>
-          </div>
-
-          <div class="field is-grouped">
-            <div class="control">
-              <button onClick={this.handleClick} class="button is-link">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <h1>Login First</h1>
+        )}
       </>
     );
   }
