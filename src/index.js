@@ -12,6 +12,7 @@ import "bulma/css/bulma.css";
 import Register from "./Register";
 import Profile from "./Profile";
 import SingleArt from "./SingleArt";
+import EditBlog from "./EditBlog";
 
 class App extends React.Component {
   state = {
@@ -50,6 +51,7 @@ class App extends React.Component {
         <Route path="/edit" component={Edit} />
         <Route path="/profile" component={Profile} />
         <Route path="/article/:slug" component={SingleArt} />
+        <Route path="/editArticle/:slug" component={EditBlog} />
       </div>
     );
   }
