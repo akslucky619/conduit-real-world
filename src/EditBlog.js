@@ -30,17 +30,20 @@ class EditBlog extends React.Component {
   };
 
   inputChange = ({ target: { name, value } }) => {
+    console.log(name, "name");
     this.setState({
-      [name]: value
+      article: {
+        [name]: value
+      }
     });
   };
 
   handleClick = () => {
     const { slug } = this.props.match.params;
-    const tagList = this.state.article.tagList
-      .split(",")
-      .map(tag => tag.trim());
-    const { title, description, body } = this.state.article;
+    // const tagList = this.state.article.tagList
+    //   .split(",")
+    //   .map(tag => tag.trim());
+    const { title, description, body, tagList } = this.state.article;
     const data = {
       article: {
         title,
@@ -50,7 +53,7 @@ class EditBlog extends React.Component {
       }
     };
     fetch(`https://conduit.productionready.io/api/articles/${slug}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.token}`

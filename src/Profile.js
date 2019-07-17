@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 class Profile extends React.Component {
   state = {
@@ -56,7 +56,16 @@ class Profile extends React.Component {
               {user !== null ? (
                 <>
                   <h1 className="title is-1">{this.state.user.username}</h1>
-                  <h2 className="subtitle is-4">Edit</h2>
+                  <div className="hero-bottom">
+                    <Link to="/edit">
+                      <button className="profile-btn button is-outlined">
+                        <span className="icon">
+                          <i className="fas fa-cog" />
+                        </span>
+                        <span>Edit Profile Settings</span>
+                      </button>
+                    </Link>
+                  </div>
                 </>
               ) : (
                 <h1>Load ho raha hai...</h1>
@@ -68,27 +77,36 @@ class Profile extends React.Component {
           <>
             <ul>
               {this.state.articles.map(article => (
-                <div class="card is-half">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <figure class="image is-48x48" />
-                        {/* <img src={article.author.image} /> */}
+                <div class="column is-half is-offset-one-quarter">
+                  <div className="card">
+                    <div className="card-content">
+                      <div className="media">
+                        <div className="media-left">
+                          <figure className="image is-64x64">
+                            <img
+                              className="is-rounded"
+                              src={article.author.image}
+                              alt=""
+                            />
+                          </figure>
+                        </div>
+                        <div className="media-content">
+                          <p className="title is-4">
+                            {article.author.username}
+                          </p>
+                          <Link
+                            to={`/article/${article.slug}`}
+                            className="subtitle is-6"
+                          >
+                            {article.title}
+                          </Link>
+                        </div>
                       </div>
-                      <div class="media-content">
-                        <p class="title is-4">{article.author.username}</p>
-                        <Link
-                          to={`/article/${article.slug}`}
-                          class="subtitle is-6"
-                        >
-                          {article.title}
-                        </Link>
+                      <div className="content">
+                        {article.description}
+                        <br />
+                        <time dateTime="2016-1-1">{article.createdAt}</time>
                       </div>
-                    </div>
-                    <div class="content">
-                      {article.description}
-                      <br />
-                      <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                     </div>
                   </div>
                 </div>

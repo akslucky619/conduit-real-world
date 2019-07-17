@@ -26,7 +26,7 @@ export default class Stories extends React.Component {
                 <div className="media-left">
                   <figure className="image is-64x64">
                     <img
-                      classNameName="is-rounded"
+                      className="is-rounded"
                       src={article.author.image}
                       alt=""
                     />

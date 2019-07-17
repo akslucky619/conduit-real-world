@@ -20,11 +20,13 @@ class Tags extends React.Component {
         <div className="tag-title">
           <p>Popular Tags</p>
         </div>
-        {this.state.tags.map((tag, i) => (
-          <button key={i} className="tag button is-success is-medium">
-            {tag}
-          </button>
-        ))}
+        <div>
+          {this.state.tags.map((tag, i) => (
+            <button key={i} className="tag button is-success is-medium">
+              {tag}
+            </button>
+          ))}
+        </div>
       </div>
     );
   }
