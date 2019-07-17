@@ -10,6 +10,9 @@ function Tabs() {
         <li>
           <NavLink to="#">Your feed</NavLink>
         </li>
+        <li>
+          <NavLink to="#" />
+        </li>
       </ul>
     </div>
   );

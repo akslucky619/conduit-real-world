@@ -3,7 +3,8 @@ import axios from "axios";
 
 class Tags extends React.Component {
   state = {
-    tags: []
+    tags: [],
+    articles: []
   };
 
   componentDidMount() {
@@ -14,6 +15,18 @@ class Tags extends React.Component {
     });
   }
 
+  tagClick = tag => {
+    console.log(tag, "ye hai mera tag ");
+    fetch(
+      `https://conduit.productionready.io/api/articles?limit=10&offset=0&tag=${tag}`
+    )
+      .then(res => res.json())
+      .then(({ articles }) => {
+        console.log(articles, "tag waale");
+        this.setState({ articles });
+      });
+  };
+
   render() {
     return (
       <div className="tags box tag-container">
@@ -22,7 +35,11 @@ class Tags extends React.Component {
         </div>
         <div>
           {this.state.tags.map((tag, i) => (
-            <button key={i} className="tag button is-success is-medium">
+            <button
+              key={i}
+              onClick={() => this.tagClick(tag)}
+              className="tag button is-success is-medium"
+            >
               {tag}
             </button>
           ))}

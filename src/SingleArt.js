@@ -74,7 +74,22 @@ class SingleArt extends React.Component {
     });
   };
 
-  handleDelete = () => {};
+  // handleDelete = () => {
+  //   fetch(`https://conduit.productionready.io/api/articles/${slug}/comments/${commentID}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Token ${localStorage.token}`
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //     .then(res => res.json())
+  //     .then(({ comment }) => {
+  //       this.setState({
+  //         comments: [...this.state.comments, comment]
+  //       });
+  //     });
+  // };
   render() {
     const { article, comments, body } = this.state;
     console.log(body, "check body");
