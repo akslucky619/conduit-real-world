@@ -35,13 +35,17 @@ export default class EditUser extends React.Component {
   };
 
   handleClick = () => {
+    const { bio, image, email, username } = this.state;
+    const data = {
+      user: { bio, image, email, username }
+    };
     fetch("https://conduit.productionready.io/api/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.token}`
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(data)
     })
       .then(res => res.json())
       .then(user => {
@@ -56,7 +60,8 @@ export default class EditUser extends React.Component {
     this.props.history.push("/");
   };
   render() {
-    // const { user } = this.state;
+    console.log(this.state.user, "user");
+    const { bio, image, username, email } = this.state.user;
     // console.log(user, "doosri baar waala");
     return (
       <>
@@ -71,6 +76,7 @@ export default class EditUser extends React.Component {
                     className="input"
                     name="image"
                     type="text"
+                    value={image}
                     placeholder="URL of profile picture"
                   />
                 </div>
@@ -83,6 +89,7 @@ export default class EditUser extends React.Component {
                     className="input"
                     type="text"
                     name="username"
+                    value={username}
                     placeholder="New username"
                   />
                 </div>
@@ -94,6 +101,7 @@ export default class EditUser extends React.Component {
                     className="textarea"
                     name="bio"
                     onChange={this.handleChange}
+                    value={bio}
                     placeholder="Bio"
                   />
                 </div>
@@ -106,6 +114,7 @@ export default class EditUser extends React.Component {
                     className="input"
                     type="text"
                     name="email"
+                    value={email}
                     placeholder="new email"
                   />
                 </div>

@@ -36,6 +36,7 @@ class Login extends React.Component {
         console.log(data);
         if (data !== null) {
           localStorage.setItem("token", data.user.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           this.setState({
             user: data.user
           });
