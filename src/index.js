@@ -8,6 +8,12 @@ import CreateBlog from "./CreateBlog";
 import Edit from "./Edit";
 
 import "./styles.css";
+import "font-awesome/css/font-awesome.min.css";
+import {
+  faCheckSquare,
+  faCoffee,
+  faheart
+} from "@fortawesome/free-solid-svg-icons";
 import "bulma/css/bulma.css";
 import Register from "./Register";
 import Profile from "./Profile";
