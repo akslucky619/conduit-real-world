@@ -15,7 +15,9 @@ export default class EditUser extends React.Component {
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({
-      [name]: value
+      user: {
+        [name]: value
+      }
     });
   };
 
@@ -35,23 +37,23 @@ export default class EditUser extends React.Component {
   };
 
   handleClick = () => {
-    const { bio, image, email, username } = this.state;
-    const data = {
-      user: { bio, image, email, username }
-    };
+    // const { bio, image, email, username } = this.state;
+    // const data = {
+    //   user: { bio, image, email, username }
+    // };
     fetch("https://conduit.productionready.io/api/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.token}`
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(this.state)
     })
       .then(res => res.json())
       .then(user => {
         console.log(user, "put req");
         // this.setState({ user: user });
-        // this.props.history.push("/");
+        this.props.history.push("/");
       });
   };
 
