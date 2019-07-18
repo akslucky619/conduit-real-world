@@ -15,8 +15,8 @@ class SingleArt extends React.Component {
     fetch(`https://conduit.productionready.io/api/articles/${slug}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.token}`
+        "Content-Type": "application/json"
+        // Authorization: `Token ${localStorage.token}`
       }
     })
       .then(res => res.json())
@@ -30,8 +30,8 @@ class SingleArt extends React.Component {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.token}`
+          "Content-Type": "application/json"
+          // Authorization: `Token ${localStorage.token}`
         }
       }
     )

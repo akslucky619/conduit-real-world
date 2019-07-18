@@ -1,232 +1,56 @@
 import React from "react";
 import "bulma";
-// import axios from "axios";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import Pagination from "./Pagination";
-import customFetch from "../customFetch";
 
 export default class Stories extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-      isLoading: false,
-      tag: "",
-      articlesCount: 0,
-      page: 1,
-      initailTab: "globalFeed"
-    };
-    this.isYourFeed = false;
-  }
+  state = {
+    articles: []
+  };
 
   componentDidMount() {
-    this.fetchArticles();
+    axios.get(`https://conduit.productionready.io/api/articles`).then(res => {
+      const stories = res.data;
+      console.log(stories, "in home");
+      this.setState({ articles: stories.articles });
+    });
   }
 
-  fetchArticles = (filter = {}) => {
-    const { tag, author, favorited, offset } = filter;
-
-    if (!this.isYourFeed) {
-      const URL = `https://conduit.productionready.io/api/articles?limit=10&offset=${offset ||
-        "0"}&tag=${tag || ""}&author=${author || ""}&favorited=${favorited ||
-        ""}`;
-
-      fetch(URL)
-        .then(res => res.json())
-        .then(data => {
-          const { articles, articlesCount } = data;
-          this.setState({ articles, articlesCount, isLoading: false });
-        })
-        .catch(error => console.error(error));
-    } else {
-      const URL = `https://conduit.productionready.io/api/articles/feed?limit=10&offset=${offset ||
-        "0"}`;
-      const token = `Token ${localStorage.token}`;
-
-      fetch(URL, {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json"
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer" // no-referrer, *client
-      })
-        .then(response => response.json())
-        .then(data => {
-          const { articles, articlesCount } = data;
-          this.setState({ articles, articlesCount, isLoading: false });
-        })
-        .catch(error => console.error(error));
-    }
-  };
-
-  filterByItem = item => {
-    this.isYourFeed = false;
-    this.fetchArticles(item);
-  };
-
-  setPage = page => {
-    this.setState({ page });
-  };
-
-  setTag = tag => {
-    this.setState({ tag, initailTab: "tagFeed", isYourFeed: false });
-  };
-
-  handleTab = tab => {
-    this.setState({ initailTab: tab });
-    switch (tab) {
-      case "yourFeed":
-        this.isYourFeed = true;
-        this.fetchArticles();
-        break;
-      case "globalFeed":
-        this.filterByItem();
-        break;
-      case "tagFeed":
-        this.filterByItem({ tag: this.state.tag });
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  // componentDidMount() {
-  //   const url = `https://conduit.productionready.io/api/articles?offset=0`;
-  //   axios.get(url).then(res => {
-  //     const stories = res.data;
-  //     console.log(stories, "in home");
-  //     this.setState({
-  //       articles: stories.articles,
-  //       storiesCount: stories.articlesCount
-  //     });
-  //   });
-  // }
-
   render() {
-    const {
-      articles,
-      isLoading,
-      page,
-      tag,
-      articlesCount,
-      initailTab
-    } = this.state;
     return (
-      <>
-        <ul>
-          {this.state.articles.map((article, i) => (
-            <article className="media" key={i}>
-              <figure className="media-left">
-                <p className="image is-64x64">
-                  <img
-                    className=" is-responsive is-rounded"
-                    src={article.author.image}
-                    alt=""
-                  />
-                </p>
-              </figure>
-              <div className="media-content">
-                <div className="content">
-                  <div>
-                    <span>
-                      <Link
-                        to={{
-                          pathname: "/profile",
-                          state: {
-                            username: article.author.username
-                          }
-                        }}
-                        className="green-text"
-                      >
-                        {article.author.username}
-                      </Link>
-                    </span>
-                    <p className="thin-text">
-                      <em>{Date(article.updatedAt).slice(0, 15)}</em>
-                    </p>
-                  </div>
+      <ul>
+        {this.state.articles.map((article, i) => (
+          <div className="card">
+            <div className="card-content">
+              <div className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64">
+                    <img
+                      className="is-rounded"
+                      src={article.author.image}
+                      alt=""
+                    />
+                  </figure>
                 </div>
-                <Link
-                  to={{
-                    pathname: "/article",
-                    state: { slug: article.slug }
-                  }}
-                  className="article-link"
-                >
-                  <div className="article-teaser">
-                    <h4 className="article-title">{article.title}</h4>
-                    <p>
-                      {article.description.length > 70
-                        ? `${article.description.slice(0, 70)}...`
-                        : article.description}
-                    </p>
-                  </div>
-                  <small className="thin-text">Read More...</small>
-                </Link>
+                <div className="media-content">
+                  <p className="title is-4">{article.author.username}</p>
+                  <Link
+                    to={`/article/${article.slug}`}
+                    className="subtitle is-6"
+                  >
+                    {article.title}
+                  </Link>
+                </div>
               </div>
-              <div className="media-right">
-                <ArticleLike article={article} />
+              <div className="content">
+                {article.description}
+                <br />
+                <time dateTime="2016-1-1">{article.createdAt}</time>
               </div>
-            </article>
-          ))}
-        </ul>
-        {/* <Pagination i={this.state.storiesCount} /> */}
-        <Pagination
-          count={articlesCount}
-          filterByPage={this.fetchArticles}
-          setPage={this.setPage}
-          page={page}
-        />
-      </>
-    );
-  }
-}
-
-class ArticleLike extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      likes: props.article.favoritesCount,
-      fav: props.article.favorited
-    };
-  }
-
-  clickLike(slug, fav) {
-    const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
-    const mode = this.state.fav ? "DELETE" : "POST";
-    const token = `Token ${localStorage.token}`;
-
-    customFetch(url, null, token, mode)
-      .then(data => {
-        if (!data.errors) {
-          const { favoritesCount, favorited } = data.article;
-          this.setState({ likes: favoritesCount, fav: favorited });
-        } else {
-          this.setState({ message: "email or password is invalid" });
-        }
-      })
-      .catch(error => console.error(error));
-  }
-
-  render() {
-    const { slug, favorited } = this.props.article;
-    return (
-      <button
-        onClick={() => this.clickLike(slug, favorited)}
-        className="button is-success is-outlined"
-      >
-        <span className="icon is-small">
-          <i className="fas fa-heart" />
-        </span>
-        <span>{this.state.likes}</span>
-      </button>
+            </div>
+          </div>
+        ))}
+      </ul>
     );
   }
 }
