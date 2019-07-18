@@ -1,28 +1,123 @@
 import React from "react";
 import "bulma";
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
+import customFetch from "../customFetch";
 
 export default class Stories extends React.Component {
-  state = {
-    articles: [],
-    storiesCount: 0
-  };
-
-  componentDidMount() {
-    const url = `https://conduit.productionready.io/api/articles?offset=0`;
-    axios.get(url).then(res => {
-      const stories = res.data;
-      console.log(stories, "in home");
-      this.setState({
-        articles: stories.articles,
-        storiesCount: stories.articlesCount
-      });
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles: [],
+      isLoading: false,
+      tag: "",
+      articlesCount: 0,
+      page: 1,
+      initailTab: "globalFeed"
+    };
+    this.isYourFeed = false;
   }
 
+  componentDidMount() {
+    this.fetchArticles();
+  }
+
+  fetchArticles = (filter = {}) => {
+    const { tag, author, favorited, offset } = filter;
+
+    if (!this.isYourFeed) {
+      const URL = `https://conduit.productionready.io/api/articles?limit=10&offset=${offset ||
+        "0"}&tag=${tag || ""}&author=${author || ""}&favorited=${favorited ||
+        ""}`;
+
+      fetch(URL)
+        .then(res => res.json())
+        .then(data => {
+          const { articles, articlesCount } = data;
+          this.setState({ articles, articlesCount, isLoading: false });
+        })
+        .catch(error => console.error(error));
+    } else {
+      const URL = `https://conduit.productionready.io/api/articles/feed?limit=10&offset=${offset ||
+        "0"}`;
+      const token = `Token ${localStorage.token}`;
+
+      fetch(URL, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer" // no-referrer, *client
+      })
+        .then(response => response.json())
+        .then(data => {
+          const { articles, articlesCount } = data;
+          this.setState({ articles, articlesCount, isLoading: false });
+        })
+        .catch(error => console.error(error));
+    }
+  };
+
+  filterByItem = item => {
+    this.isYourFeed = false;
+    this.fetchArticles(item);
+  };
+
+  setPage = page => {
+    this.setState({ page });
+  };
+
+  setTag = tag => {
+    this.setState({ tag, initailTab: "tagFeed", isYourFeed: false });
+  };
+
+  handleTab = tab => {
+    this.setState({ initailTab: tab });
+    switch (tab) {
+      case "yourFeed":
+        this.isYourFeed = true;
+        this.fetchArticles();
+        break;
+      case "globalFeed":
+        this.filterByItem();
+        break;
+      case "tagFeed":
+        this.filterByItem({ tag: this.state.tag });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  // componentDidMount() {
+  //   const url = `https://conduit.productionready.io/api/articles?offset=0`;
+  //   axios.get(url).then(res => {
+  //     const stories = res.data;
+  //     console.log(stories, "in home");
+  //     this.setState({
+  //       articles: stories.articles,
+  //       storiesCount: stories.articlesCount
+  //     });
+  //   });
+  // }
+
   render() {
+    const {
+      articles,
+      isLoading,
+      page,
+      tag,
+      articlesCount,
+      initailTab
+    } = this.state;
     return (
       <>
         <ul>
@@ -82,7 +177,13 @@ export default class Stories extends React.Component {
             </article>
           ))}
         </ul>
-        <Pagination i={100} />
+        {/* <Pagination i={this.state.storiesCount} /> */}
+        <Pagination
+          count={articlesCount}
+          filterByPage={this.fetchArticles}
+          setPage={this.setPage}
+          page={page}
+        />
       </>
     );
   }
@@ -97,36 +198,22 @@ class ArticleLike extends React.Component {
     };
   }
 
-  // clickLike(slug, fav) {
-  //   const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
-  //   const mode = this.state.fav ? "DELETE" : "POST";
-  //   const token = `Token ${auth.getToken()}`;
+  clickLike(slug, fav) {
+    const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
+    const mode = this.state.fav ? "DELETE" : "POST";
+    const token = `Token ${localStorage.token}`;
 
-  //   fetch(url, null, token, mode)
-  //     .then(data => {
-  //       if (!data.errors) {
-  //         const { favoritesCount, favorited } = data.article;
-  //         this.setState({ likes: favoritesCount, fav: favorited });
-  //       } else {
-  //         this.setState({ message: "email or password is invalid" });
-  //       }
-  //     })
-  //     .catch(error => console.error(error));
-  // }
-
-  // clickLike(slug, fav) {
-  //   const url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
-  //   this.state.fav?(
-  //     fetch(url,{
-  //       method:"POST",
-  //       headers:{
-  //         "Content-Type": "application/json",
-  //         Authorization: `Token ${localStorage.token}`
-  //       },
-
-  //     })
-  //   )
-  // }
+    customFetch(url, null, token, mode)
+      .then(data => {
+        if (!data.errors) {
+          const { favoritesCount, favorited } = data.article;
+          this.setState({ likes: favoritesCount, fav: favorited });
+        } else {
+          this.setState({ message: "email or password is invalid" });
+        }
+      })
+      .catch(error => console.error(error));
+  }
 
   render() {
     const { slug, favorited } = this.props.article;
