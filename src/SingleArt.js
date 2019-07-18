@@ -7,7 +7,8 @@ class SingleArt extends React.Component {
   state = {
     article: {},
     comments: [],
-    body: ""
+    body: "",
+    user: ""
   };
 
   componentDidMount = () => {
@@ -74,25 +75,30 @@ class SingleArt extends React.Component {
     });
   };
 
-  // handleDelete = () => {
-  //   fetch(`https://conduit.productionready.io/api/articles/${slug}/comments/${commentID}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Token ${localStorage.token}`
-  //     },
-  //     body: JSON.stringify(data)
-  //   })
-  //     .then(res => res.json())
-  //     .then(({ comment }) => {
-  //       this.setState({
-  //         comments: [...this.state.comments, comment]
-  //       });
-  //     });
-  // };
+  handleDelete = commentID => {
+    const { slug } = this.props.match.params;
+    fetch(
+      `https://conduit.productionready.io/api/articles/${slug}/comments/${commentID}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.token}`
+        }
+      }
+    )
+      .then(res => res.json())
+      .then(comment => {
+        console.log(comment, "in delete");
+        this.setState({
+          comments: [...this.state.comments]
+        });
+      });
+  };
   render() {
     const { article, comments, body } = this.state;
-    console.log(body, "check body");
+    console.log(article.author, "check artcle wala author");
+    const user = JSON.parse(localStorage.user);
     return (
       <>
         <Header />
@@ -106,7 +112,11 @@ class SingleArt extends React.Component {
                   <Link to="/profile" className="subtitle is-6">
                     {article.author.username}
                   </Link>
-                  <Link to={`/editArticle/${article.slug}`}>Edit</Link>
+                  {article.author.username === user.username ? (
+                    <Link to={`/editArticle/${article.slug}`}>Edit</Link>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </section>
@@ -129,7 +139,15 @@ class SingleArt extends React.Component {
             </div>
           </>
         ) : (
-          ""
+          <>
+            <section className="hero is-small is-success is-bold">
+              <div className="hero-body">
+                <div className="container hero-container">
+                  <h1>Loading...</h1>
+                </div>
+              </div>
+            </section>
+          </>
         )}
         <section className="column is-6 is-offset-3">
           <article class="media">
@@ -227,6 +245,20 @@ class SingleArt extends React.Component {
                     ) : (
                       <></>
                     )} */}
+                      <div className="level-right">
+                        <div className="level-item">
+                          <div className="level-item">
+                            <button
+                              className="button is-text"
+                              onClick={() => this.handleDelete(comment.id)}
+                            >
+                              <span className="icon is-small">
+                                <i className="fas fa-trash-alt" />
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </nav>
                   </div>
                 </article>
