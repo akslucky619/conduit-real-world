@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "bulma";
+import Header from "./Header"
 
 export default class Register extends React.Component {
   state = {
@@ -35,6 +36,8 @@ export default class Register extends React.Component {
 
   render() {
     return (
+      <>
+      <Header/>
       <div class="columns is-mobile">
         <div class="column is-three-fifths is-offset-one-fifth">
           <div className="sign-header">
@@ -95,6 +98,7 @@ export default class Register extends React.Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

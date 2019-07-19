@@ -109,17 +109,19 @@ class SingleArt extends React.Component {
                 <div className="container hero-container">
                   <h1 className="title is-1">{this.state.article.title}</h1>
                   <h3>By..</h3>
-                  <Link
-                    to={{
-                      pathname: "/authorProfile",
-                      state: {
-                        username: this.state.article.author.username
-                      }
-                    }}
-                    className="subtitle is-6"
-                  >
-                    {article.author.username}
-                  </Link>
+                  <h2>
+                    <Link
+                      to={{
+                        pathname: "/authorProfile",
+                        state: {
+                          username: this.state.article.author.username
+                        }
+                      }}
+                      className="subtitle is-6"
+                    >
+                      {article.author.username}
+                    </Link>
+                  </h2>
                   {article.author.username === user.username ? (
                     <Link to={`/editArticle/${article.slug}`}>Edit</Link>
                   ) : (
@@ -128,12 +130,12 @@ class SingleArt extends React.Component {
                 </div>
               </div>
             </section>
-            <div class="card">
+            {/* <div class="card">
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
                     <figure class="image is-48x48" />
-                    {/* <img /> */}
+                  
                     <h2>{article.body}</h2>
                   </div>
                   <div class="media-content">
@@ -144,7 +146,27 @@ class SingleArt extends React.Component {
                   <br />
                 </div>
               </div>
-            </div>
+            </div> */}
+            <section className="base column is-8 is-offset-2">
+              <div className="content is-medium">
+                <p className="article-main media">{article.body}</p>
+              </div>
+
+              <div className="tags">
+                {article.tagList ? (
+                  article.tagList.map((tag, i) => {
+                    return (
+                      <span key={i} className="tag">
+                        {tag}
+                      </span>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </div>
+              <hr />
+            </section>
           </>
         ) : (
           <>
@@ -192,6 +214,7 @@ class SingleArt extends React.Component {
                     <div className="field">
                       <p className="control">
                         <textarea
+                          style={{ border: "none" }}
                           className="textarea old-comment"
                           value={comment.body}
                           placeholder="Add a comment..."

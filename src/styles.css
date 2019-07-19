@@ -4,3 +4,120 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.article-title {
+  font-size: 16px;
+  font-weight: bold;
+  /* margin-bottom: 5px; */
+}
+.article-teaser {
+  margin-bottom: 5px;
+}
+.green-text {
+  color: #22cf5e;
+}
+
+.hero.is-success .header-title {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.sign-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.hero-container {
+  text-align: center;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tag-title {
+  width: 100%;
+  margin: 5px auto;
+}
+.article-link {
+  color: black;
+}
+
+/* Profile */
+.img-container {
+  margin: 1rem auto;
+}
+.profile-btn {
+  background-color: transparent;
+  max-width: 250px;
+  margin: 0.5rem 2rem;
+}
+.hero-bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Article */
+.article-main {
+  margin: 2rem 0 4rem 0;
+}
+.v-center {
+  align-self: center;
+}
+.media .commnet-media {
+  border: none;
+  padding: 0.5rem 0;
+}
+.comment-box {
+  border: 1px solid darkgray !important;
+  border-radius: 5px;
+  /* padding: 10px; */
+}
+.old-comment {
+  border: none;
+  box-shadow: none;
+  resize: none;
+}
+.comment-footer {
+  border-top: 1px solid darkgray;
+  padding: 5px 15px;
+  background: gainsboro;
+}
+
+.old-comment:focus {
+  border: none;
+  box-shadow: none;
+}
+.article-btn-box {
+  align-self: center;
+}
+.article-btn {
+  background-color: transparent;
+  max-width: 250px;
+  margin-left: 0.5rem;
+}
+
+.image .is-responsive {
+  height: 100%;
+}
+
+.profile-bio {
+  margin-top: 1rem;
+  font-weight: lighter;
+}
+
+.thin-text {
+  font-weight: lighter;
+}
+.tag-container {
+  background: rgba(241, 241, 241, 0.651);
+}
+.page-number {
+  border: 1px solid gainsboro;
+  background: white;
+}
+
+.comment-user {
+  margin-right: 10px;
+}
