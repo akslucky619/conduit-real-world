@@ -125,7 +125,11 @@ export default class Stories extends React.Component {
       <>
         <ul>
           {this.state.articles.map((article, i) => (
-            <article className="media" key={i}>
+            <article
+              style={{ "margin-bottom": "50px" }}
+              className="media"
+              key={i}
+            >
               <figure className="media-left">
                 <p className="image is-64x64">
                   <img
@@ -146,26 +150,26 @@ export default class Stories extends React.Component {
                             username: article.author.username
                           }
                         }}
-                        className="green-text"
+                        className=""
                       >
                         {article.author.username}
                       </Link>
                     </span>
-                    <p className="thin-text">
+                    <p className="">
                       <em>{Date(article.updatedAt).slice(0, 15)}</em>
                     </p>
                   </div>
                 </div>
                 <Link to={`/article/${article.slug}`} className="article-link">
-                  <div className="article-teaser">
-                    <h4 className="article-title">{article.title}</h4>
+                  <div className="">
+                    <h4 className="">{article.title}</h4>
                     <p>
                       {article.description.length > 70
                         ? `${article.description.slice(0, 70)}...`
                         : article.description}
                     </p>
                   </div>
-                  <small className="thin-text">Read More...</small>
+                  <small className="">Read More...</small>
                 </Link>
               </div>
               <div className="media-right">

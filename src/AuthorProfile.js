@@ -52,32 +52,95 @@ class AuthorProfile extends React.Component {
       <>
         <Header />
         <section className="hero is-small is-success is-bold">
-          <div className="hero-body">
-            <div className="container hero-container">
-              {user !== null ? (
-                <>
-                  <h1 className="title is-1">{this.state.user.username}</h1>
-                  <div className="hero-bottom">
-                    {this.state.user.username === localStorage.user.username ? (
-                      <Link to="/edit">
-                        <button className="profile-btn button is-outlined">
-                          <span className="icon">
-                            <i className="fas fa-cog" />
-                          </span>
-                          <span>Edit Profile Settings</span>
-                        </button>
-                      </Link>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </>
-              ) : (
-                <h1>Load ho raha hai...</h1>
-              )}
+          <div className="base column is-8 is-offset-2">
+            <div className="hero-body">
+              <div className="container hero-container">
+                {user !== null ? (
+                  <>
+                    <div>
+                      <figure
+                        // style={{ "margin-left": "535px" }}
+                        className="image is-128x128 img-container"
+                      >
+                        <img
+                          className=" is-responsive image is-rounded"
+                          src={
+                            this.state.user.image ||
+                            "https://bulma.io/images/placeholders/128x128.png"
+                          }
+                          alt="profile avatar"
+                        />
+                      </figure>
+                      <h4
+                        // style={{ "padding-top": "3rem" }}
+                        className="title is-4"
+                      >
+                        {this.state.user.username}
+                      </h4>
+                      <p className="profile-bio is-6">{this.state.user.bio}</p>
+                      <div className="hero-bottom">
+                        {this.state.user.username ===
+                        localStorage.user.username ? (
+                          <Link to="/edit">
+                            <button className="profile-btn button is-outlined">
+                              <span className="icon">
+                                <i className="fas fa-cog" />
+                              </span>
+                              <span>Edit Profile Settings</span>
+                            </button>
+                          </Link>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <h1>Load ho raha hai...</h1>
+                )}
+              </div>
             </div>
           </div>
         </section>
+        {/* <section className="hero is-small is-light is-bold">
+          <div className="base column is-8 is-offset-2">
+         
+            <div className="hero-body">
+              <div className="container hero-container">
+              
+                <div>
+                  <figure className="image is-128x128 img-container">
+                    <img
+                      className=" is-responsive image is-rounded"
+                      src={
+                        this.state.user.image ||
+                        "https://bulma.io/images/placeholders/128x128.png"
+                      }
+                      alt="profile avatar"
+                    />
+                  </figure>
+                  <h4 className="title is-4">{this.state.user.username}</h4>
+                  <p className="profile-bio is-6">{this.state.user.bio}</p>
+                </div>
+              </div>
+            </div>
+            <div className="hero-bottom">
+              {this.state.user.username === localStorage.user.username ? (
+                <button
+                  className="profile-btn button is-outlined"
+                  onClick={this.editProfile}
+                >
+                  <span className="icon">
+                    <i className="fas fa-cog" />
+                  </span>
+                  <span>Edit Profile Settings</span>
+                </button>
+              ) : (
+                <FollowButton profile={profile} />
+              )}
+            </div>
+          </div>
+        </section> */}
         {articles !== null ? (
           <>
             <ul>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Hero } from "./Home";
+import Header from "./Header";
 
 const url = "https://conduit.productionready.io/api/users/login";
 
@@ -49,6 +50,7 @@ class Login extends React.Component {
   render() {
     return (
       <>
+        <Header />
         <Hero />
         <div className="column is-three-fifths is-offset-one-fifth">
           <div className="sign-header">
