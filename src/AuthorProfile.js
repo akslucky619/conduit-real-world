@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Header from "./Header";
 
 class AuthorProfile extends React.Component {
@@ -50,58 +50,66 @@ class AuthorProfile extends React.Component {
     const { user, articles } = this.state;
     return (
       <>
-        <Header />
-        <section className="hero is-small is-success is-bold">
-          <div className="base column is-8 is-offset-2">
-            <div className="hero-body">
-              <div className="container hero-container">
-                {user !== null ? (
-                  <>
-                    <div>
-                      <figure
-                        // style={{ "margin-left": "535px" }}
-                        className="image is-128x128 img-container"
-                      >
-                        <img
-                          className=" is-responsive image is-rounded"
-                          src={
-                            this.state.user.image ||
-                            "https://bulma.io/images/placeholders/128x128.png"
-                          }
-                          alt="profile avatar"
-                        />
-                      </figure>
-                      <h4
-                        // style={{ "padding-top": "3rem" }}
-                        className="title is-4"
-                      >
-                        {this.state.user.username}
-                      </h4>
-                      <p className="profile-bio is-6">{this.state.user.bio}</p>
-                      <div className="hero-bottom">
-                        {this.state.user.username ===
-                        localStorage.user.username ? (
-                          <Link to="/edit">
-                            <button className="profile-btn button is-outlined">
-                              <span className="icon">
-                                <i className="fas fa-cog" />
-                              </span>
-                              <span>Edit Profile Settings</span>
-                            </button>
-                          </Link>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <h1>Load ho raha hai...</h1>
-                )}
+        {localStorage.token ? (
+          <>
+            <Header />
+            <section className="hero is-small is-success is-bold">
+              <div className="base column is-8 is-offset-2">
+                <div className="hero-body">
+                  <div className="container hero-container">
+                    {user !== null ? (
+                      <>
+                        <div>
+                          <figure
+                            // style={{ "margin-left": "535px" }}
+                            className="image is-128x128 img-container"
+                          >
+                            <img
+                              className=" is-responsive image is-rounded"
+                              src={
+                                this.state.user.image ||
+                                "https://bulma.io/images/placeholders/128x128.png"
+                              }
+                              alt="profile avatar"
+                            />
+                          </figure>
+                          <h4
+                            // style={{ "padding-top": "3rem" }}
+                            className="title is-4"
+                          >
+                            {this.state.user.username}
+                          </h4>
+                          <p className="profile-bio is-6">
+                            {this.state.user.bio}
+                          </p>
+                          <div className="hero-bottom">
+                            {this.state.user.username ===
+                            localStorage.user.username ? (
+                              <Link to="/edit">
+                                <button className="profile-btn button is-outlined">
+                                  <span className="icon">
+                                    <i className="fas fa-cog" />
+                                  </span>
+                                  <span>Edit Profile Settings</span>
+                                </button>
+                              </Link>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <h1>Load ho raha hai...</h1>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          </>
+        ) : (
+          <Redirect to="/login" />
+        )}
         {/* <section className="hero is-small is-light is-bold">
           <div className="base column is-8 is-offset-2">
          
