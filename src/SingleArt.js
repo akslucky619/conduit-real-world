@@ -97,7 +97,7 @@ class SingleArt extends React.Component {
   };
   render() {
     const { article, comments, body } = this.state;
-    console.log(article.author, "check artcle wala author");
+    console.log(article, "check artcle wala author");
     const user = JSON.parse(localStorage.user);
     return (
       <>
@@ -109,7 +109,15 @@ class SingleArt extends React.Component {
                 <div className="container hero-container">
                   <h1 className="title is-1">{this.state.article.title}</h1>
                   <h3>By..</h3>
-                  <Link to="/profile" className="subtitle is-6">
+                  <Link
+                    to={{
+                      pathname: "/authorProfile",
+                      state: {
+                        username: this.state.article.author.username
+                      }
+                    }}
+                    className="subtitle is-6"
+                  >
                     {article.author.username}
                   </Link>
                   {article.author.username === user.username ? (
@@ -210,7 +218,7 @@ class SingleArt extends React.Component {
                           <div className="v-center media-content is-small">
                             <Link
                               to={{
-                                pathname: "/profile",
+                                pathname: "/authorProfile",
                                 state: {
                                   username: comment.author.username
                                 }
