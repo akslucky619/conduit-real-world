@@ -90,8 +90,12 @@ class SingleArt extends React.Component {
       .then(res => res.json())
       .then(comment => {
         console.log(comment, "in delete");
+        const deletedItems = this.state.comments.filter(
+          comment => comment.id !== commentID
+        );
+        console.log(deletedItems, "check deleteitem");
         this.setState({
-          comments: [...this.state.comments]
+          comments: deletedItems
         });
       });
   };
@@ -99,6 +103,7 @@ class SingleArt extends React.Component {
     const { article, comments, body } = this.state;
     console.log(article, "check artcle wala author");
     const user = JSON.parse(localStorage.user);
+    console.log(comments, "check cmments");
     return (
       <>
         <Header />
@@ -130,23 +135,6 @@ class SingleArt extends React.Component {
                 </div>
               </div>
             </section>
-            {/* <div class="card">
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image is-48x48" />
-                  
-                    <h2>{article.body}</h2>
-                  </div>
-                  <div class="media-content">
-                    <p class="title is-4" />
-                  </div>
-                </div>
-                <div class="content">
-                  <br />
-                </div>
-              </div>
-            </div> */}
             <section className="base column is-8 is-offset-2">
               <div className="content is-medium">
                 <p className="article-main media">{article.body}</p>
@@ -187,6 +175,7 @@ class SingleArt extends React.Component {
                   <textarea
                     class="textarea"
                     onChange={this.handleChange}
+                    value={this.state.body}
                     name="body"
                     placeholder="Add a comment..."
                   >
