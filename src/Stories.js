@@ -190,7 +190,7 @@ export default class Stories extends React.Component {
   }
 }
 
-class ArticleLike extends React.Component {
+export class ArticleLike extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

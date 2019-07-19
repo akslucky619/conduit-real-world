@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Header from "./Header";
+import { ArticleLike } from "./Stories";
 
 class AuthorProfile extends React.Component {
   constructor(props) {
@@ -151,41 +152,64 @@ class AuthorProfile extends React.Component {
         </section> */}
         {articles !== null ? (
           <>
-            <ul>
-              {this.state.articles.map(article => (
-                <div class="column is-half is-offset-one-quarter">
-                  <div className="card">
-                    <div className="card-content">
-                      <div className="media">
-                        <div className="media-left">
-                          <figure className="image is-64x64">
-                            <img
-                              className="is-rounded"
-                              src={article.author.image}
-                              alt=""
-                            />
-                          </figure>
-                        </div>
-                        <div className="media-content">
-                          <p className="title is-4">
-                            {article.author.username}
-                          </p>
+            <ul
+              style={{ width: "53rem", marginLeft: "32rem", marginTop: "6rem" }}
+            >
+              {this.state.articles.map((article, i) => (
+                <article
+                  style={{ marginBottom: "50px" }}
+                  className="media"
+                  key={i}
+                >
+                  <figure className="media-left">
+                    <p className="image is-64x64">
+                      <img
+                        className=" is-responsive is-rounded"
+                        src={article.author.image}
+                        alt=""
+                      />
+                    </p>
+                  </figure>
+                  <div className="media-content">
+                    <div className="content">
+                      <div>
+                        <span>
                           <Link
-                            to={`/article/${article.slug}`}
-                            className="subtitle is-6"
+                            to={{
+                              pathname: "/authorProfile",
+                              state: {
+                                username: article.author.username
+                              }
+                            }}
+                            className=""
                           >
-                            {article.title}
+                            {article.author.username}
                           </Link>
-                        </div>
-                      </div>
-                      <div className="content">
-                        {article.description}
-                        <br />
-                        <time dateTime="2016-1-1">{article.createdAt}</time>
+                        </span>
+                        <p className="">
+                          <em>{Date(article.updatedAt).slice(0, 15)}</em>
+                        </p>
                       </div>
                     </div>
+                    <Link
+                      to={`/article/${article.slug}`}
+                      className="article-link"
+                    >
+                      <div className="">
+                        <h4 className="">{article.title}</h4>
+                        <p>
+                          {article.description.length > 70
+                            ? `${article.description.slice(0, 70)}...`
+                            : article.description}
+                        </p>
+                      </div>
+                      <small className="">Read More...</small>
+                    </Link>
                   </div>
-                </div>
+                  <div className="media-right">
+                    <ArticleLike article={article} />
+                  </div>
+                </article>
               ))}
             </ul>
           </>
