@@ -224,7 +224,7 @@ class ArticleLike extends React.Component {
         className="button is-success is-outlined"
       >
         <span className="icon is-small">
-          <i class="far fa-thumbs-up" />
+          <i class="fa fa-heart" />
         </span>
         <span>{this.state.likes}</span>
       </button>
