@@ -36,9 +36,10 @@ class Tags extends React.Component {
         <div>
           {this.state.tags.map((tag, i) => (
             <button
+            // style={{"background":"#2322229c"}}
               key={i}
               onClick={() => this.tagClick(tag)}
-              className="tag button is-success is-medium"
+              className="tag button is-dark is-medium"
             >
               {tag}
             </button>
