@@ -168,6 +168,8 @@ class SingleArt extends React.Component {
           </>
         )}
         <section className="column is-6 is-offset-3">
+          {localStorage.token?(
+
           <article class="media">
             <div class="media-content">
               <div class="field">
@@ -194,6 +196,9 @@ class SingleArt extends React.Component {
               </nav>
             </div>
           </article>
+          ):(
+            ""
+          )}
         </section>
         <section className="column is-6 is-offset-3">
           {comments
