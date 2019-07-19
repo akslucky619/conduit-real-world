@@ -4,7 +4,7 @@ import "./styles.css";
 
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import customFetch from "../customFetch";
+import customFetch from './customFetch'
 import Pagination from "./Pagination";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
