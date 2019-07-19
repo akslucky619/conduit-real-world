@@ -4,7 +4,7 @@ import "./styles.css";
 
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import customFetch from "../customFetch";
+import customFetch from './customFetch'
 import Pagination from "./Pagination";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -224,7 +224,7 @@ export class ArticleLike extends React.Component {
         className="button is-success is-outlined"
       >
         <span className="icon is-small">
-          <i class="far fa-thumbs-up" />
+          <i class="fa fa-heart" />
         </span>
         <span>{this.state.likes}</span>
       </button>
