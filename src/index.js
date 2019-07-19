@@ -19,6 +19,7 @@ import Register from "./Register";
 import Profile from "./Profile";
 import SingleArt from "./SingleArt";
 import EditBlog from "./EditBlog";
+import AuthorProfile from "./AuthorProfile";
 
 class App extends React.Component {
   state = {
@@ -58,6 +59,7 @@ class App extends React.Component {
         <Route path="/profile" component={Profile} />
         <Route path="/article/:slug" component={SingleArt} />
         <Route path="/editArticle/:slug" component={EditBlog} />
+        <Route path="/authorProfile" component={AuthorProfile} />
       </div>
     );
   }

@@ -1,9 +1,12 @@
 import React from "react";
 import "bulma";
+import "./styles.css";
+
 // import axios from "axios";
 import { Link } from "react-router-dom";
 import customFetch from "../customFetch";
 import Pagination from "./Pagination";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class Stories extends React.Component {
   constructor(props) {
@@ -138,7 +141,7 @@ export default class Stories extends React.Component {
                     <span>
                       <Link
                         to={{
-                          pathname: "/profile",
+                          pathname: "/authorProfile",
                           state: {
                             username: article.author.username
                           }
@@ -217,7 +220,7 @@ class ArticleLike extends React.Component {
         className="button is-success is-outlined"
       >
         <span className="icon is-small">
-          <i className="fas fa-heart" />
+          <i class="far fa-thumbs-up" />
         </span>
         <span>{this.state.likes}</span>
       </button>
