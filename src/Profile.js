@@ -103,7 +103,7 @@ class Profile extends React.Component {
                         </div>
                       </>
                     ) : (
-                      <h1>Load ho raha hai...</h1>
+                      <h1>Loading...</h1>
                     )}
                   </div>
                 </div>
