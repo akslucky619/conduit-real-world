@@ -43,6 +43,21 @@ class SingleArt extends React.Component {
       });
   };
 
+  blogDelete = () =>{
+    const {slug} = this.props.match.params;
+    fetch(`https://conduit.productionready.io/api/articles/${slug}`,{
+      method: "DELETE",
+      headers:{
+        "Content-Type":"application/json",
+        Authorization: `Token ${localStorage.token}`
+      }
+    }).then(res=> res.json())
+    .then(article=>{
+      console.log(article,"in delete")
+      this.props.history.push("/")
+    })
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
@@ -114,7 +129,7 @@ class SingleArt extends React.Component {
                 <div className="container hero-container">
                   <h1 className="title is-1">{this.state.article.title}</h1>
                   <h3>By..</h3>
-                  <h2>
+                  <h2 style={{marginBottom:"20px"}}>
                     <Link
                       to={{
                         pathname: "/authorProfile",
@@ -128,7 +143,32 @@ class SingleArt extends React.Component {
                     </Link>
                   </h2>
                   {article.author.username === user.username ? (
-                    <Link to={`/editArticle/${article.slug}`}>Edit</Link>
+                    <>
+                    <Link to={`/editArticle/${article.slug}`}>
+                      <button
+                    className="button is-warning  is-outlined article-btn"
+                    style={{"background":"yellow"}}
+										
+									>
+										<span className="icon is-small">
+											{/* <i className="fas fa-cog" /> */}
+										</span>
+										<span style={{"color":"black"}}>Edit Article</span>
+									</button>
+                      </Link>
+                      <button
+                      onClick={this.blogDelete}
+                    className="button is-danger   article-btn"
+                    // style={{"background":"yellow"}}
+										
+									>
+										<span className="icon is-small">
+											{/* <i className="fas fa-cog" /> */}
+										</span>
+										<span >Delete Article</span>
+									</button>
+                  </>
+                      
                   ) : (
                     ""
                   )}
