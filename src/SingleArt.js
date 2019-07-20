@@ -286,8 +286,8 @@ class SingleArt extends React.Component {
                                 {comment.author.username}
                               </span>
                             </Link>
-                            <span className="thin-text">
-                              <em>{Date(comment.createdAt).slice(0, 15)}</em>
+                            <span style={{marginLeft:"16px"}} className="thin-text">
+                              {Date(comment.createdAt).slice(0, 15)}
                             </span>
                           </div>
                         </div>
